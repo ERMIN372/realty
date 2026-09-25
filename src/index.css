@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink-50: #f5f7fb;
+  --color-ink-100: #e8edf6;
+  --color-ink-200: #cdd7ea;
+  --color-ink-300: #a3b4d4;
+  --color-ink-400: #6e86b5;
+  --color-ink-500: #455f96;
+  --color-ink-600: #2f4679;
+  --color-ink-700: #213561;
+  --color-ink-800: #172749;
+  --color-ink-900: #0f1c38;
+  --color-ink-950: #0a1328;
+
+  --color-paper: #fafaf8;
+  --color-line: #e7e7e3;
+  --color-muted: #6b7080;
+  --color-gold: #b89b6a;
+
+  --shadow-soft: 0 1px 2px rgb(15 28 56 / 0.04), 0 8px 24px -8px rgb(15 28 56 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(15 28 56 / 0.04), 0 24px 48px -16px rgb(15 28 56 / 0.18);
+}
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { @apply bg-paper text-ink-950 font-sans; font-feature-settings: "ss01", "cv11"; }
+  ::selection { background: var(--color-ink-900); color: white; }
+  input, select, textarea, button { font: inherit; }
+}
+
+@utility container-x { @apply mx-auto w-full max-w-[1560px] px-5 sm:px-8 lg:px-12; }
+@utility eyebrow { @apply text-[11px] font-semibold uppercase tracking-[0.22em] text-ink-500; }
+@utility display-serif { @apply font-serif font-medium tracking-[-0.01em] leading-[1.02]; }
+@utility btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 h-12 text-sm font-semibold transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed; }
+@utility btn-primary { @apply btn bg-ink-900 text-white hover:bg-ink-700 hover:shadow-lift; }
+@utility btn-ghost { @apply btn border border-line bg-white text-ink-900 hover:border-ink-900; }
+@utility btn-sm { @apply h-10! px-4! text-[13px]!; }
+@utility field { @apply w-full h-12 rounded-xl border border-line bg-white px-4 text-sm text-ink-950 outline-none transition placeholder:text-muted/70 focus:border-ink-700 focus:ring-4 focus:ring-ink-100; }
+@utility label { @apply mb-1.5 block text-xs font-medium text-muted; }
+@utility card { @apply rounded-3xl border border-line bg-white; }
+@utility chip { @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 h-8 text-xs font-medium text-ink-800; }
+
+.hairline-grid {
+  background-image:
+    linear-gradient(to right, rgb(15 28 56 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 28 56 / 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.animate-fade-up { animation: fade-up .7s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes pop { from { opacity: 0; transform: scale(.97) translateY(8px); } to { opacity: 1; transform: none; } }
+.animate-pop { animation: pop .3s cubic-bezier(.2,.7,.2,1) both; }
+
+input[type="range"] { accent-color: var(--color-ink-900); }
+
+select.field {
+  appearance: none;
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236e86b5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 16px;
+  cursor: pointer;
+}
