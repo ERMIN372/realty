@@ -28,7 +28,7 @@ function Login() {
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="relative hidden overflow-hidden bg-ink-950 p-14 text-white lg:flex lg:flex-col lg:justify-between">
         <div className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:64px_64px]" />
-        <div className="pointer-events-none absolute -bottom-40 -left-20 h-[520px] w-[520px] rounded-full bg-ink-600/40 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-40 -left-20 h-[720px] w-[720px] rounded-full bg-[radial-gradient(closest-side,rgb(47_70_121/0.45),transparent)]" />
         <div className="relative"><Logo light /></div>
         <div className="relative">
           <h1 className="display-serif text-[64px]">Рабочее место брокера</h1>
@@ -154,7 +154,7 @@ export default function AdminLayout() {
     <div className="min-h-screen bg-paper lg:pl-[272px]">
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[272px] bg-ink-950 lg:block">{sidebar}</aside>
 
-      <div className="sticky top-0 z-30 flex items-center justify-between border-b border-line bg-white/90 px-5 py-3 backdrop-blur lg:hidden">
+      <div className="sticky top-0 z-30 flex items-center justify-between border-b border-line bg-white px-5 py-3 lg:hidden">
         <Logo />
         <button onClick={() => setOpen(true)} className="grid h-10 w-10 place-items-center rounded-full border border-line" aria-label="Меню">
           <Menu className="h-5 w-5" />

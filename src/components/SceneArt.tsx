@@ -1,4 +1,4 @@
-import { useId, type ReactNode } from 'react'
+import { memo, useId, type ReactNode } from 'react'
 import type { Palette, Scene } from '../types'
 
 /** Детерминированный псевдослучайный генератор — чтобы картинки не «прыгали» между рендерами */
@@ -34,7 +34,7 @@ export const SCENE_LABELS: Record<Scene, string> = {
   lobby: 'Лобби',
 }
 
-export default function SceneArt({ scene, palette, seed = 'k', className }: Props) {
+function SceneArt({ scene, palette, seed = 'k', className }: Props) {
   const uid = useId().replace(/:/g, '')
   const r = rng(seed + scene)
   const id = (n: string) => `${uid}-${n}`
@@ -475,3 +475,6 @@ export default function SceneArt({ scene, palette, seed = 'k', className }: Prop
     </svg>
   )
 }
+
+// Сцена — сотни SVG-узлов: перерисовываем только при смене пропсов
+export default memo(SceneArt)

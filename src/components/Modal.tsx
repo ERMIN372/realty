@@ -14,7 +14,7 @@ export default function Modal({ title, onClose, children, wide }: { title: strin
   }, [onClose])
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink-950/40 p-0 backdrop-blur-sm sm:items-center sm:p-6" onMouseDown={onClose}>
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink-950/50 p-0 sm:items-center sm:p-6" onMouseDown={onClose}>
       <div
         role="dialog"
         aria-modal

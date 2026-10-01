@@ -26,13 +26,13 @@ export default function FavoriteButton({
       aria-pressed={active}
       aria-label={active ? 'Убрать из избранного' : 'Добавить в избранное'}
       className={cn(
-        'grid place-items-center rounded-full border backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95',
+        'grid place-items-center rounded-full border transition-all duration-300 hover:scale-105 active:scale-95',
         size === 'lg' ? 'h-12 w-12' : 'h-10 w-10',
         active
           ? 'border-ink-900 bg-ink-900 text-white'
           : tone === 'solid'
             ? 'border-line bg-white text-ink-900 hover:border-ink-900'
-            : 'border-white/60 bg-white/80 text-ink-900 hover:bg-white',
+            : 'border-white/60 bg-white/95 text-ink-900 hover:bg-white',
         className,
       )}
     >
