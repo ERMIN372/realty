@@ -10,6 +10,9 @@ import '@fontsource/manrope/600.css'
 import '@fontsource/manrope/700.css'
 import './index.css'
 import App from './App'
+import { installDomGuard } from './lib/domGuard'
+
+installDomGuard()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
