@@ -5,7 +5,11 @@ import Footer from './Footer'
 
 export default function Layout() {
   const { pathname } = useLocation()
-  useEffect(() => window.scrollTo(0, 0), [pathname])
+  // тело в фигурных скобках: эффект не должен ничего возвращать. Некоторые браузеры и расширения
+  // подменяют window.scrollTo, и его результат React принял бы за функцию очистки («l is not a function»)
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
