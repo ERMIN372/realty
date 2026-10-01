@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type FormEvent } from 'react'
+import { useCallback, useEffect, useMemo, useState, type FormEvent } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
   ArrowLeft,
@@ -37,7 +37,7 @@ const TIMES = ['10:00', '11:00', '12:00', '13:30', '15:00', '16:30', '18:00', '1
 function Gallery({ p }: { p: Property }) {
   const [i, setI] = useState(0)
   const n = p.scenes.length
-  const go = (d: number) => setI((v) => (v + d + n) % n)
+  const go = useCallback((d: number) => setI((v) => (v + d + n) % n), [n])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -47,23 +47,16 @@ function Gallery({ p }: { p: Property }) {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  })
+  }, [go])
 
   return (
     <div className="grid gap-3 lg:grid-cols-[1.6fr_1fr]">
       <div className="group relative aspect-[4/3] overflow-hidden rounded-[32px] bg-ink-50">
-        {p.scenes.map((s, idx) => (
-          <SceneArt
-            key={s + idx}
-            scene={s}
-            palette={p.palette}
-            seed={p.id}
-            className={cn('absolute inset-0 h-full w-full transition-all duration-700 ease-out', idx === i ? 'scale-100 opacity-100' : 'scale-[1.03] opacity-0')}
-          />
-        ))}
+        {/* монтируем только активный кадр — раньше в DOM висели все шесть больших SVG */}
+        <SceneArt key={i} scene={p.scenes[i]} palette={p.palette} seed={p.id} className="animate-fade-in absolute inset-0 h-full w-full" />
         <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-ink-950/45 to-transparent p-6 pt-20">
-          <span className="rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-ink-900 backdrop-blur">{SCENE_LABELS[p.scenes[i]]}</span>
-          <span className="rounded-full bg-ink-950/60 px-4 py-2 text-xs font-semibold tabular-nums text-white backdrop-blur">
+          <span className="rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-ink-900">{SCENE_LABELS[p.scenes[i]]}</span>
+          <span className="rounded-full bg-ink-950/70 px-4 py-2 text-xs font-semibold tabular-nums text-white">
             {i + 1} / {n}
           </span>
         </div>
@@ -73,7 +66,7 @@ function Gallery({ p }: { p: Property }) {
             onClick={() => go(dir === 'next' ? 1 : -1)}
             aria-label={dir === 'next' ? 'Следующее фото' : 'Предыдущее фото'}
             className={cn(
-              'absolute top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink-950 shadow-soft backdrop-blur transition-all duration-300 hover:scale-105 hover:bg-white sm:opacity-0 sm:group-hover:opacity-100',
+              'absolute top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/95 text-ink-950 shadow-soft transition-all duration-300 hover:scale-105 hover:bg-white sm:opacity-0 sm:group-hover:opacity-100',
               dir === 'next' ? 'right-5' : 'left-5',
             )}
           >

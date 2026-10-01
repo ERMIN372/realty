@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, BedDouble, Building2, MapPin, Maximize2 } from 'lucide-react'
 import SceneArt from './SceneArt'
@@ -8,13 +9,13 @@ import { TYPE_LABELS, cn, formatPrice, pricePerMeter, roomsLabel } from '../lib/
 /** Обложка карточки: явно заданная в данных или первый кадр галереи */
 export const coverScene = (p: Property) => p.cover ?? (p.type === 'apartment' ? (p.scenes[1] ?? p.scenes[0]) : p.scenes[0])
 
-export default function PropertyCard({ property: p, view = 'grid' }: { property: Property; view?: 'grid' | 'list' }) {
+function PropertyCard({ property: p, view = 'grid' }: { property: Property; view?: 'grid' | 'list' }) {
   const list = view === 'list'
   return (
     <Link
       to={`/property/${p.id}`}
       className={cn(
-        'group card relative flex overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:border-ink-200 hover:shadow-lift',
+        'group card relative flex overflow-hidden transition-all duration-500 [content-visibility:auto] [contain-intrinsic-size:auto_560px] hover:-translate-y-1 hover:border-ink-200 hover:shadow-lift',
         list ? 'flex-col sm:flex-row' : 'flex-col',
       )}
     >
@@ -27,7 +28,7 @@ export default function PropertyCard({ property: p, view = 'grid' }: { property:
         />
         <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
           <div className="flex flex-wrap gap-1.5">
-            <span className="rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold text-ink-900 backdrop-blur">{TYPE_LABELS[p.type]}</span>
+            <span className="rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold text-ink-900">{TYPE_LABELS[p.type]}</span>
             {p.isNew && <span className="rounded-full bg-ink-900 px-3 py-1 text-[11px] font-semibold text-white">Новое</span>}
           </div>
           <FavoriteButton id={p.id} />
@@ -76,3 +77,5 @@ export default function PropertyCard({ property: p, view = 'grid' }: { property:
     </Link>
   )
 }
+
+export default memo(PropertyCard)

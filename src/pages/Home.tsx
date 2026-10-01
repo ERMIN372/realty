@@ -170,7 +170,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="absolute -right-2 top-1/2 hidden rounded-3xl border border-line bg-white/95 p-5 shadow-lift backdrop-blur sm:block lg:-right-6">
+            <div className="absolute -right-2 top-1/2 hidden rounded-3xl border border-line bg-white p-5 shadow-lift sm:block lg:-right-6">
               <div className="flex items-center gap-3">
                 <span className="grid h-11 w-11 place-items-center rounded-2xl bg-ink-50">
                   <ShieldCheck className="h-5 w-5 text-ink-700" strokeWidth={1.5} />
@@ -250,7 +250,7 @@ export default function Home() {
       {/* СТАТИСТИКА */}
       <section className="relative overflow-hidden bg-ink-950 py-24 text-white lg:py-28">
         <div className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(to_right,white_1px,transparent_1px)] [background-size:120px_100%]" />
-        <div className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-ink-600/30 blur-3xl" />
+        <div className="pointer-events-none absolute -right-60 -top-60 h-[760px] w-[760px] rounded-full bg-[radial-gradient(closest-side,rgb(47_70_121/0.35),transparent)]" />
         <div className="container-x relative">
           <div className="max-w-2xl">
             <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">«Ключ» в цифрах</div>

@@ -54,13 +54,14 @@ interface Store {
   login: (email: string, password: string) => boolean
   logout: () => void
 
-  toasts: Toast[]
   notify: (text: string) => void
 
   resetDemo: () => void
 }
 
 const Ctx = createContext<Store | null>(null)
+// тосты отдельно: их появление/исчезновение не должно перерисовывать всё приложение
+const ToastCtx = createContext<Toast[]>([])
 
 export function AppStoreProvider({ children }: { children: ReactNode }) {
   const [properties, setProperties] = usePersistent<Property[]>(KEYS.properties, seedProperties)
@@ -116,7 +117,6 @@ export function AppStoreProvider({ children }: { children: ReactNode }) {
       },
       logout: () => setIsAdmin(false),
 
-      toasts,
       notify,
 
       resetDemo: () => {
@@ -125,10 +125,14 @@ export function AppStoreProvider({ children }: { children: ReactNode }) {
         setFavorites([])
       },
     }),
-    [properties, favorites, requests, isAdmin, toasts, notify, toggleFavorite, setProperties, setRequests, setFavorites, setIsAdmin],
+    [properties, favorites, requests, isAdmin, notify, toggleFavorite, setProperties, setRequests, setFavorites, setIsAdmin],
   )
 
-  return <Ctx.Provider value={value}>{children}</Ctx.Provider>
+  return (
+    <Ctx.Provider value={value}>
+      <ToastCtx.Provider value={toasts}>{children}</ToastCtx.Provider>
+    </Ctx.Provider>
+  )
 }
 
 export function useStore() {
@@ -136,3 +140,5 @@ export function useStore() {
   if (!ctx) throw new Error('useStore вне AppStoreProvider')
   return ctx
 }
+
+export const useToasts = () => useContext(ToastCtx)
