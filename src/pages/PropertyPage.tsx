@@ -248,8 +248,6 @@ export default function PropertyPage() {
   const { getProperty, properties, notify } = useStore()
   const p = getProperty(id)
 
-  useEffect(() => window.scrollTo(0, 0), [id])
-
   if (!p) {
     return (
       <div className="container-x flex flex-col items-center py-32 text-center">
